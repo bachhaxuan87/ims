@@ -28,7 +28,7 @@ class ProductVariant {
   @Column({ default: 'active' })
   status: string;
 
-  @Column({ nullable: true })
+  @Column({ default: 0 })
   quantity: number;
 
   @Column()
