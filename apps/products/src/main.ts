@@ -16,10 +16,10 @@ async function bootstrap() {
   }));
 
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('IMS APIs')
+    .setDescription('Inventory APIs')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('ims')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

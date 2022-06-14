@@ -13,7 +13,6 @@ export class AuthService {
 
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.usersService.findOne(email);
-    console.log(user)
     if (!user) return null;
 
     const isMatch = await bcrypt.compare(pass, user.password);
@@ -26,7 +25,6 @@ export class AuthService {
   }
 
   async login(dto: LoginDto) {
-    
     const user = await this.validateUser(dto.email, dto.password);
     if (!user) {
       throw new UnauthorizedException();
