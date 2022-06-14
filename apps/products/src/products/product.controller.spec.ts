@@ -7,7 +7,7 @@ export const mockProductsService = {
   create: jest.fn(),
   update: jest.fn(),
   delete: jest.fn(),
-  dettail: jest.fn(),
+  getById: jest.fn(),
   search: jest.fn(),
 };
 
@@ -17,10 +17,12 @@ describe('AppController', () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [ProductsController],
-      providers: [{
-        provide: ProductsService,
-        useValue: mockProductsService,
-      }],
+      providers: [
+        {
+          provide: ProductsService,
+          useValue: mockProductsService,
+        },
+      ],
     }).compile();
 
     controller = app.get<ProductsController>(ProductsController);
@@ -55,6 +57,30 @@ describe('AppController', () => {
       const response = await controller.delete(1);
       expect(mockProductsService.delete).toHaveBeenCalledTimes(1);
       expect(response).toBe(productDto);
+    });
+
+    it('should call service - delete', async () => {
+      jest
+        .spyOn(mockProductsService, 'getById')
+        .mockImplementation(async () => productDto);
+
+      const response = await controller.getById(1);
+      expect(mockProductsService.getById).toHaveBeenCalledTimes(1);
+      expect(response).toBe(productDto);
+    });
+
+    it('should call service - search', async () => {
+      jest
+        .spyOn(mockProductsService, 'search')
+        .mockImplementation(async () => [productDto]);
+
+      const response = await controller.search({
+        search: '',
+        page: 1,
+        limit: 10,
+      });
+      expect(mockProductsService.search).toHaveBeenCalledTimes(1);
+      expect(response).toStrictEqual([productDto]);
     });
   });
 });
