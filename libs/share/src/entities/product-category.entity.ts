@@ -17,6 +17,9 @@ class ProductCategory {
   public id: number;
 
   @Column()
+  public company_id: string;
+
+  @Column()
   public category_name: string;
 
   @CreateDateColumn()

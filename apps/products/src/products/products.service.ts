@@ -56,6 +56,7 @@ export class ProductsService {
       ...product,
     });
     const newProductCategory = await this.productCategoriesRepository.create({
+      company_id: this.context.company_id,
       category_name: product.product_category,
     });
 
